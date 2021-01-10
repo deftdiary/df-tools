@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/util.ts",
   "scripts": {
-    "test": "jest",
+    "test": "jest --watchAll",
+    "test:cover": "jest --coverage",
     "start": "tsc -w"
   },
   "author": "deft",

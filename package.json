@@ -4,9 +4,9 @@
   "description": "",
   "main": "src/util.ts",
   "scripts": {
+    "start": "tsc -w",
     "test": "jest --watchAll",
-    "test:cover": "jest --coverage",
-    "start": "tsc -w"
+    "test:cover": "jest --coverage"
   },
   "author": "deft",
   "license": "MIT",

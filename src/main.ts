@@ -124,3 +124,34 @@ export function reverseStr(s: string) {
 export function unique(arr: any[]) {
   return [...new Set(arr)]
 }
+
+/**
+ * debounce
+ */
+export function debounce(func: () => any, wait: number) {
+  let timeout: NodeJS.Timeout
+  return function () {
+    let context = this
+    let args = arguments
+    clearTimeout(timeout) 
+    timeout = setTimeout(function() {
+      func.apply(context, args)
+    }, wait)
+  }
+}
+
+/**
+ * throttle
+ */
+export function throttle(func: () => any, wait: number) {
+  let prev: number = 0, context: any, args: any
+  return function () {
+    let now = +new Date()
+    context = this
+    args = arguments
+    if (now - prev > wait) {
+      func.apply(context, args)
+      prev = now
+    }
+  }
+}

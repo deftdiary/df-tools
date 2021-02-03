@@ -133,8 +133,8 @@ export function debounce(func: () => any, wait: number) {
   return function () {
     let context = this
     let args = arguments
-    clearTimeout(timeout) 
-    timeout = setTimeout(function() {
+    clearTimeout(timeout)
+    timeout = setTimeout(function () {
       func.apply(context, args)
     }, wait)
   }
@@ -144,7 +144,9 @@ export function debounce(func: () => any, wait: number) {
  * throttle
  */
 export function throttle(func: () => any, wait: number) {
-  let prev: number = 0, context: any, args: any
+  let prev: number = 0,
+    context: any,
+    args: any
   return function () {
     let now = +new Date()
     context = this
@@ -154,4 +156,81 @@ export function throttle(func: () => any, wait: number) {
       prev = now
     }
   }
+}
+
+/**
+ * 时间戳转化日期
+ */
+export function getFormatTime(time: number) {
+  // init date
+  const date = new Date(time)
+  // get detail
+  const getM = date.getMonth() + 1
+  const getD = date.getDate()
+  const getH = date.getHours()
+  const getMin = date.getMinutes()
+  const getSec = date.getSeconds()
+  // set y m d h min sec
+  const y = date.getFullYear()
+  const m = getM < 10 ? `0${getM}` : getM
+  const d = getD < 10 ? `0${getD}` : getD
+  const h = getH < 10 ? `0${getH}` : getH
+  const min = getMin < 10 ? `0${getMin}` : getMin
+  const sec = getSec < 10 ? `0${getSec}` : getSec
+  return {
+    fmtDate: `${y}-${m}-${d}`,
+    fmtTime: `${h}:${min}:${sec}`
+  }
+}
+
+/**
+ * 获取指定名称的 cookie 的值
+ */
+export function getCookie(name: string) {
+  const arr = document.cookie.split(';')
+  for (let i = 0; i < arr.length; i++) {
+    const str = arr[i].split('=')
+    if (str[0].trim() === name) {
+      return str[1]
+    }
+  }
+}
+
+/**
+ * 写入 cookie
+ */
+export function setCookie(key, value) {
+  const getExpire = new Date((new Date()).getTime() + 24 * 60 * 60000); // 有效期24小时
+  const expire = `;expires=${getExpire.toUTCString()}`;
+  document.cookie = `${key}=${value};path=/;domain=.qq.com${expire}`;
+}
+
+// 解析出query参数字段
+// export function parseQueryKey(url) {
+//   let urlParsed = new URL(url);
+//   let result = [...urlParsed.searchParams].reduce((cur, [key, value]) => (cur[key] = value, cur), {});
+//   return result;
+// }
+
+/**
+ * 环境验证
+ */ 
+export function getUserAgent() {
+  return (typeof navigator !== 'undefined' && navigator && navigator.userAgent) || '';
+}
+export const ua = getUserAgent();
+export const isQQ = /\bQQ\/([\d.]+)/.test(ua);
+export const isIOS = /\b(iPad|iPhone|iPod)\b.*? OS ([\d_]+)/.test(ua);
+export const isAndroid = /\bAndroid\s*([^;]+)/.test(ua);
+export const isWeiXin = navigator.userAgent.toLowerCase().search(/MicroMessenger/i) !== -1;// 当前是否在QQ浏览器中运行
+export const qb = navigator.userAgent.toLowerCase();
+export const isQQBrowser = !!qb.match(/mqqbrowser|qqbrowser|nowsdk/i);
+
+
+/**
+ * 查询 URL 中的参数值
+ * @param name 
+ */
+export function query(name: string) {
+  return location.search.match(new RegExp(`(\\?|&)${name}=([^&]*)(&|$)`)) ? decodeURIComponent(RegExp.$2) : '';  
 }

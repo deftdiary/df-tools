@@ -205,13 +205,6 @@ export function setCookie(key, value) {
   document.cookie = `${key}=${value};path=/;domain=.qq.com${expire}`;
 }
 
-// 解析出query参数字段
-// export function parseQueryKey(url) {
-//   let urlParsed = new URL(url);
-//   let result = [...urlParsed.searchParams].reduce((cur, [key, value]) => (cur[key] = value, cur), {});
-//   return result;
-// }
-
 /**
  * 环境验证
  */ 
@@ -234,3 +227,86 @@ export const isQQBrowser = !!qb.match(/mqqbrowser|qqbrowser|nowsdk/i);
 export function query(name: string) {
   return location.search.match(new RegExp(`(\\?|&)${name}=([^&]*)(&|$)`)) ? decodeURIComponent(RegExp.$2) : '';  
 }
+
+/**
+ * 获取一个随机布尔值 (true/false)
+ */
+export const randomBoolean = (): boolean => Math.random() >= 0.5
+
+/**
+ * 检查日期是否为工作日
+ */
+export const isWeekday = (date: Date): boolean => date.getDate() % 6 !== 0
+
+/**
+ * 反转字符串
+ */
+export const reverse = (str: string): string => str.split('').reverse().join('')
+
+/**
+ * 检查当前 Tab 页是否在前台
+ */
+export const isBrowserTabInView = (): boolean => document.hidden
+
+/**
+ * 检查数字是否为偶数
+ */
+export const isEven = (num: number): boolean => (num&1) === 0
+
+/**
+ * 数字地板除以 2
+ */
+export const divideTwo = (num: number): number => num >> 1
+
+/**
+ * 从日期中获取时间
+ */
+export const timeFromDate = (date: Date): string => date.toTimeString().slice(0, 8)
+
+/**
+ * 保留小数点（非四舍五入）
+ * 
+ * Examples
+ * toFixed(25.198726354, 1);       // 25.1
+ * toFixed(25.198726354, 2);       // 25.19
+ * toFixed(25.198726354, 3);       // 25.198
+ * toFixed(25.198726354, 4);       // 25.1987
+ * toFixed(25.198726354, 5);       // 25.19872
+ * toFixed(25.198726354, 6);       // 25.198726
+ */
+export const toFixed = (n: number, fixed: number): number => ~~(Math.pow(10, fixed) * n) / Math.pow(10, fixed);
+
+/**
+ * 检查元素当前是否为聚焦状态
+ */
+export const elementIsInFocus = (el: HTMLElement): boolean => (el === document.activeElement);
+
+/**
+ * 检查浏览器是否支持触摸事件
+ * DocumentTouch 废弃 --MDN
+ */
+export const touchSupported = (): boolean => {
+  // return ('ontouchstart' in window || window.DocumentTouch && document instanceof window.DocumentTouch)
+  return ('ontouchstart' in window)
+}
+
+/**
+ * 检查当前用户是否为苹果设备
+ */
+export const isAppleDevice = /Mac|iPod|iPhone|iPad/.test(navigator.platform);
+
+/**
+ * 滚动到页面顶部
+ */
+export const goToTop = (): void => window.scrollTo(0, 0)
+
+/**
+ * 获取所有参数平均值
+ */
+export const average = (...args: number[]): number => args.reduce((a, b) => a + b) / args.length
+
+/**
+ * 转换华氏度/摄氏度
+ */
+export const celsiusToFahrenheit = (celsius: number): number => celsius * 9/5 + 32
+export const fahrenheitToCelsius = (fahrenheit: number): number => (fahrenheit - 32) * 5/9

@@ -3,5 +3,5 @@
 This library for writing some personal js/ts little tools
 
 ```
-  npm start
+  npm run dev
 ```

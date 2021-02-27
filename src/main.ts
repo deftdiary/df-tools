@@ -208,9 +208,8 @@ export function setCookie(key, value) {
 /**
  * 环境验证
  */ 
-export function getUserAgent() {
-  return (typeof navigator !== 'undefined' && navigator && navigator.userAgent) || '';
-}
+export const getUserAgent = (): string => (typeof navigator !== 'undefined' && navigator && navigator.userAgent) || ''
+
 export const ua = getUserAgent();
 export const isQQ = /\bQQ\/([\d.]+)/.test(ua);
 export const isIOS = /\b(iPad|iPhone|iPod)\b.*? OS ([\d_]+)/.test(ua);
@@ -310,3 +309,16 @@ export const average = (...args: number[]): number => args.reduce((a, b) => a + 
  */
 export const celsiusToFahrenheit = (celsius: number): number => celsius * 9/5 + 32
 export const fahrenheitToCelsius = (fahrenheit: number): number => (fahrenheit - 32) * 5/9
+
+/**
+ * Convert an Array-like object to a real Array.
+ */
+export function toarray(list: any, start?: number): any[] {
+  start = start || 0
+  let i = list.length - start
+  const ret: any[] = new Array(i)
+  while (i--) {
+    ret[i] = list[i + start]
+  }
+  return ret
+}

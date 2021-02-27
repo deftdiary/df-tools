@@ -1,4 +1,4 @@
-import { camelize, isPalindrome, reverseStr, unique } from '../main'
+import { camelize, isPalindrome, reverseStr, unique } from '../src/main'
 
 describe('util test', () => {
   test('camelize function', () => {

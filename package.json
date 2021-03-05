@@ -2,7 +2,7 @@
   "name": "tools",
   "version": "1.0.0",
   "description": "",
-  "main": "src/util.ts",
+  "main": "src/index.ts",
   "scripts": {
     "dev": "tsc -w",
     "test": "jest --watchAll",

@@ -1,11 +1,11 @@
 import ListNode from './ListNode'
 
 export default class LRUCache {
-  capacity: number
-  hash: Object
-  count: number
-  dummyHead: ListNode
-  dummyTail: ListNode
+  public capacity: number
+  private hash: Object
+  private count: number
+  private dummyHead: ListNode
+  private dummyTail: ListNode
   constructor(capacity: number) {
     this.capacity = capacity
     this.hash = {}

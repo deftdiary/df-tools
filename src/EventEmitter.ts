@@ -9,7 +9,7 @@ class EventEmitter {
     this._maxLen = this._maxLen || 10 // 设置监听上限
   }
 
-  addListener(type: string, fn: Function) {
+  addListener(type: string, fn: Function): void {
     const handler = this._events.get(type)
     if (!handler) {
       this._events.set(type, [fn])
@@ -19,7 +19,7 @@ class EventEmitter {
     }
   }
 
-  emit(type: string, ...args: any[]) {
+  emit(type: string, ...args: any[]): void {
     let handler: Function[]
     handler = this._events.get(type)
     handler.forEach(handle => {

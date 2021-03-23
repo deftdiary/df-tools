@@ -1,3 +1,6 @@
+/**
+ * JSON.parse polyfill
+ */
 const rx_one = /^[\],:{}\s]*$/;
 const rx_two = /\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g;
 const rx_three = /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g;

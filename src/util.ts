@@ -52,31 +52,6 @@ export function deepClone(obj: any, hash = new WeakMap()) {
   return cloneObj
 }
 
-/**
- * emitter
- */
-interface EmitterProps {
-  emit: (type: string) => void
-  addListener: (type: string, fn: any) => void
-}
-
-export class Emitter implements EmitterProps {
-  events: any
-  constructor() {
-    this.events = this.events || new Map()
-  }
-
-  addListener(type: string, fn: any) {
-    if (!this.events.get(type)) {
-      this.events.set(type, fn)
-    }
-  }
-
-  emit(type: string, ...args: any[]) {
-    let handle = this.events.get(type)
-    handle.apply(this, [...args])
-  }
-}
 
 /**
  * curry
@@ -92,6 +67,7 @@ export function curry(fn: any) {
     }
   }
 }
+
 
 /**
  * isPalindrome
@@ -111,6 +87,7 @@ export function isPalindrome(s: string): boolean {
   return true
 }
 
+
 /**
  * reverse string
  */
@@ -118,12 +95,14 @@ export function reverseStr(s: string) {
   return s.split('').reverse().join('')
 }
 
+
 /**
  * unique
  */
 export function unique(arr: any[]) {
   return [...new Set(arr)]
 }
+
 
 /**
  * debounce
@@ -139,6 +118,7 @@ export function debounce(func: () => any, wait: number) {
     }, wait)
   }
 }
+
 
 /**
  * throttle
@@ -157,6 +137,7 @@ export function throttle(func: () => any, wait: number) {
     }
   }
 }
+
 
 /**
  * 时间戳转化日期
@@ -183,6 +164,7 @@ export function getFormatTime(time: number) {
   }
 }
 
+
 /**
  * 获取指定名称的 cookie 的值
  */
@@ -196,61 +178,73 @@ export function getCookie(name: string) {
   }
 }
 
+
 /**
  * 写入 cookie
  */
 export function setCookie(key, value) {
-  const getExpire = new Date((new Date()).getTime() + 24 * 60 * 60000); // 有效期24小时
-  const expire = `;expires=${getExpire.toUTCString()}`;
-  document.cookie = `${key}=${value};path=/;domain=.qq.com${expire}`;
+  const getExpire = new Date(new Date().getTime() + 24 * 60 * 60000) // 有效期24小时
+  const expire = `;expires=${getExpire.toUTCString()}`
+  document.cookie = `${key}=${value};path=/;domain=.qq.com${expire}`
 }
+
 
 /**
  * 环境验证
- */ 
-export const getUserAgent = (): string => (typeof navigator !== 'undefined' && navigator && navigator.userAgent) || ''
+ */
+export const getUserAgent = (): string =>
+  (typeof navigator !== 'undefined' && navigator && navigator.userAgent) || ''
 
-export const ua = getUserAgent();
-export const isQQ = /\bQQ\/([\d.]+)/.test(ua);
-export const isIOS = /\b(iPad|iPhone|iPod)\b.*? OS ([\d_]+)/.test(ua);
-export const isAndroid = /\bAndroid\s*([^;]+)/.test(ua);
-export const isWeiXin = navigator.userAgent.toLowerCase().search(/MicroMessenger/i) !== -1;// 当前是否在QQ浏览器中运行
-export const qb = navigator.userAgent.toLowerCase();
-export const isQQBrowser = !!qb.match(/mqqbrowser|qqbrowser|nowsdk/i);
+export const ua = getUserAgent()
+export const isQQ = /\bQQ\/([\d.]+)/.test(ua)
+export const isIOS = /\b(iPad|iPhone|iPod)\b.*? OS ([\d_]+)/.test(ua)
+export const isAndroid = /\bAndroid\s*([^;]+)/.test(ua)
+export const isWeiXin =
+  navigator.userAgent.toLowerCase().search(/MicroMessenger/i) !== -1 // 当前是否在QQ浏览器中运行
+export const qb = navigator.userAgent.toLowerCase()
+export const isQQBrowser = !!qb.match(/mqqbrowser|qqbrowser|nowsdk/i)
 
 
 /**
  * 查询 URL 中的参数值
- * @param name 
+ * @param name
  */
 export function query(name: string) {
-  return location.search.match(new RegExp(`(\\?|&)${name}=([^&]*)(&|$)`)) ? decodeURIComponent(RegExp.$2) : '';  
+  return location.search.match(new RegExp(`(\\?|&)${name}=([^&]*)(&|$)`))
+    ? decodeURIComponent(RegExp.$2)
+    : ''
 }
+
 
 /**
  * 获取一个随机布尔值 (true/false)
  */
 export const randomBoolean = (): boolean => Math.random() >= 0.5
 
+
 /**
  * 检查日期是否为工作日
  */
 export const isWeekday = (date: Date): boolean => date.getDate() % 6 !== 0
+
 
 /**
  * 反转字符串
  */
 export const reverse = (str: string): string => str.split('').reverse().join('')
 
+
 /**
  * 检查当前 Tab 页是否在前台
  */
 export const isBrowserTabInView = (): boolean => document.hidden
 
+
 /**
  * 检查数字是否为偶数
  */
-export const isEven = (num: number): boolean => (num&1) === 0
+export const isEven = (num: number): boolean => (num & 1) === 0
+
 
 /**
  * 数字地板除以 2
@@ -260,11 +254,13 @@ export const divideTwo = (num: number): number => num >> 1
 /**
  * 从日期中获取时间
  */
-export const timeFromDate = (date: Date): string => date.toTimeString().slice(0, 8)
+export const timeFromDate = (date: Date): string =>
+  date.toTimeString().slice(0, 8)
+
 
 /**
  * 保留小数点（非四舍五入）
- * 
+ *
  * Examples
  * toFixed(25.198726354, 1);       // 25.1
  * toFixed(25.198726354, 2);       // 25.19
@@ -273,12 +269,16 @@ export const timeFromDate = (date: Date): string => date.toTimeString().slice(0,
  * toFixed(25.198726354, 5);       // 25.19872
  * toFixed(25.198726354, 6);       // 25.198726
  */
-export const toFixed = (n: number, fixed: number): number => ~~(Math.pow(10, fixed) * n) / Math.pow(10, fixed);
+export const toFixed = (n: number, fixed: number): number =>
+  ~~(Math.pow(10, fixed) * n) / Math.pow(10, fixed)
+
 
 /**
  * 检查元素当前是否为聚焦状态
  */
-export const elementIsInFocus = (el: HTMLElement): boolean => (el === document.activeElement);
+export const elementIsInFocus = (el: HTMLElement): boolean =>
+  el === document.activeElement
+
 
 /**
  * 检查浏览器是否支持触摸事件
@@ -286,13 +286,15 @@ export const elementIsInFocus = (el: HTMLElement): boolean => (el === document.a
  */
 export const touchSupported = (): boolean => {
   // return ('ontouchstart' in window || window.DocumentTouch && document instanceof window.DocumentTouch)
-  return ('ontouchstart' in window)
+  return 'ontouchstart' in window
 }
+
 
 /**
  * 检查当前用户是否为苹果设备
  */
-export const isAppleDevice = /Mac|iPod|iPhone|iPad/.test(navigator.platform);
+export const isAppleDevice = /Mac|iPod|iPhone|iPad/.test(navigator.platform)
+
 
 /**
  * 滚动到页面顶部
@@ -302,13 +304,18 @@ export const goToTop = (): void => window.scrollTo(0, 0)
 /**
  * 获取所有参数平均值
  */
-export const average = (...args: number[]): number => args.reduce((a, b) => a + b) / args.length
+export const average = (...args: number[]): number =>
+  args.reduce((a, b) => a + b) / args.length
+
 
 /**
  * 转换华氏度/摄氏度
  */
-export const celsiusToFahrenheit = (celsius: number): number => celsius * 9/5 + 32
-export const fahrenheitToCelsius = (fahrenheit: number): number => (fahrenheit - 32) * 5/9
+export const celsiusToFahrenheit = (celsius: number): number =>
+  (celsius * 9) / 5 + 32
+export const fahrenheitToCelsius = (fahrenheit: number): number =>
+  ((fahrenheit - 32) * 5) / 9
+
 
 /**
  * Convert an Array-like object to a real Array.
@@ -321,4 +328,44 @@ export function toarray(list: any, start?: number): any[] {
     ret[i] = list[i + start]
   }
   return ret
+}
+
+
+/**
+ * Object.is polyfill
+ */
+export function is(x: unknown, y: unknown): boolean {
+  if (x === y) {
+    return x !== 0 || y !== 0 || 1 / x === 1 / y
+  } else {
+    return x !== x && y !== y
+  }
+}
+
+
+/**
+ * 浅比较
+ */
+const hasOwn = Object.prototype.hasOwnProperty
+export function shallowEqual(objA: unknown, objB: unknown): boolean {
+  if (is(objA, objB)) return true
+
+  if (typeof objA !== 'object' || objA === null ||
+      typeof objB !== 'object' || objB === null) {
+    return false
+  }
+
+  const keysA = Object.keys(objA)
+  const keysB = Object.keys(objB)
+
+  if (keysA.length !== keysB.length) return false
+
+  for (let i = 0; i < keysA.length; i++) {
+    if (!hasOwn.call(objB, keysA[i]) ||
+        !is(objA[keysA[i]], objB[keysA[i]])) {
+      return false
+    }
+  }
+
+  return true
 }

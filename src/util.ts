@@ -301,6 +301,7 @@ export const isAppleDevice = /Mac|iPod|iPhone|iPad/.test(navigator.platform)
  */
 export const goToTop = (): void => window.scrollTo(0, 0)
 
+
 /**
  * 获取所有参数平均值
  */
